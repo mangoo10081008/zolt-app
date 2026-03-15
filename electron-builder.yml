@@ -1,0 +1,72 @@
+appId: com.zolt.ai-enterprise
+productName: ZOLT AI Enterprise
+copyright: Copyright © 2024 ZOLT
+
+# Directories
+directories:
+  output: dist-electron
+  buildResources: build
+
+# Files to include (Next.js 서버 빌드 포함)
+files:
+  - electron/**/*
+  - .next/**/*
+  - public/**/*
+  - package.json
+
+# Windows configuration
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - ia32
+  icon: build/icon.ico
+  artifactName: ${productName}-${version}-Windows-Setup.${ext}
+
+# NSIS installer options (Windows)
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: ZOLT AI Enterprise
+  artifactName: ZOLT-AI-Enterprise-Setup-${version}.${ext}
+
+# macOS configuration
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  icon: build/icon.icns
+  category: public.app-category.productivity
+  artifactName: ${productName}-${version}-Mac.${ext}
+
+# DMG options (macOS)
+dmg:
+  title: ${productName}
+  icon: build/icon.icns
+  contents:
+    - x: 130
+      y: 220
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications
+
+# Linux configuration
+linux:
+  target:
+    - target: AppImage
+      arch:
+        - x64
+  icon: build/icons
+  category: Office
+  artifactName: ${productName}-${version}-Linux.${ext}
+
+# Publish configuration (optional)
+publish:
+  provider: generic
+  url: https://your-update-server.com
